@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<title>jQuery Mobile Bootstrap Theme</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link media="Screen" rel="stylesheet" href="css/style.css">
+		<link media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" href="css/mobile.css" type="text/css" rel="stylesheet" />
+	</head>
+	<style>
+  #sortablea, #sortableb {
+    border: 1px solid #eee;
+    width: 142px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-right: 10px;
+  }
+  #sortablea li, #sortableb li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    width: 120px;
+  }
+  </style>
+	<body>
+			<div class="main-block">
+				<div class="option-block">
+					<ul class="option-content">
+						<li id="add">+</li>
+						<li id="del">-</li>	
+					</ul>	
+				</div>	
+				<div class="left-side">
+					<div class="queue">
+						<ul class="sortable" id="sortable1">
+						</ul>
+					</div>	
+				</div>
+				<div class="middle-side">
+					<div class="top-block">
+						<div class="queue">
+							<ul class="sortable" id="sortable2">
+								<li>FX-1</li>
+								<li>PREAMP</li>
+								<li id='asd'>FX-2</li>
+							</ul>
+						</div>
+					</div>
+					<div class="bottom-block" >
+						<div class="queue" id='aa'>
+							<ul class="sortable" id="sortable3">
+								<li>WAH</li>
+								<li>OD/DS</li>
+								<li>PREAMP</li>
+								<li>EQ</li>
+								<li>DELAY</li>
+							</ul>
+						</div>
+					</div>	
+				</div>	
+				<div class="right-side">
+					<div class="queue">
+						<ul class="sortable" id="sortable4">
+						</ul>
+					</div>	
+				</div>
+			<div>
+
+		<script data-main="scripts/main" src="scripts/libs/jquery-2.1.1.min.js"></script>
+		<script data-main="scripts/main" src="scripts/libs/jquery-ui.min.js"></script>	
+		<script data-main="scripts/main" src="bootstrap/js/bootstrap.min.js"></script>
+		<script data-main="scripts/main" src="scripts/libs/jquery.ui.touch-punch.min.js"></script>
+		<script data-main="scripts/main" src="scripts/test.js"></script>	
+		<script>
+			var record_li_num = 1;
+			$(function() {
+				$( ".sortable" ).sortable({
+					connectWith: ".sortable",
+					  receive: function(event, ui) {
+					  		clearSelected();
+					  		$(ui.item).addClass("selected");
+						},
+						stop: function(event, ui) {
+							clearSelected();
+					  		$(ui.item).addClass("selected");
+						}
+				}).disableSelection();
+
+				$( ".sortable > li" ).click(function(){
+					clearSelected();
+					$(this).addClass('selected');
+				});
+
+				$('#del').click(function(){
+					var item = $('.sortable .selected').map(function(){
+						return(this);
+					}).get();
+					jQuery(item).remove();
+				});
+
+				$('#add').click(function(){
+					clearSelected();
+					$('#sortable4').append("<li class='selected'>New item "+record_li_num+"</li>");
+					record_li_num++
+				});
+
+			});
+			
+
+
+		</script>
+	</body>
+</html>		
